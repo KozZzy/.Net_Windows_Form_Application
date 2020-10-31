@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp3
+{
+    public partial class Form1 : Form
+    {
+        Random _rastgele = new Random();
+       
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+            pctHorse1.Left = 0;
+            pctHorse2.Left = 0;
+            pctHorse3.Left = 0;
+        }
+
+        private void btnStartRace_Click(object sender, EventArgs e)
+        {
+            btnStartRace.Visible = false;
+            tmrRace.Start();
+        }
+
+        private void tmrRace_Tick(object sender, EventArgs e)
+        {
+            
+            pctHorse1.Left += _rastgele.Next(5,20);
+            pctHorse2.Left += _rastgele.Next(5,20);
+            pctHorse3.Left += _rastgele.Next(5,20);
+
+            if (pctHorse1.Right >= lblFinishLine.Left)
+            {
+                lblResault.Visible = true;
+                tmrRace.Stop();
+                lblResault.Text = "Horse Number 1 Won.\nPress Play Again to Playndı.\nPress Exit tto Exit.";
+                btnTekrarOyna.Visible = true;
+                btnExit.Visible = true;
+            }
+            else if (pctHorse2.Right >= lblFinishLine.Left )
+            {
+                lblResault.Visible = true;
+                tmrRace.Stop();
+                lblResault.Text = "Horse Number 2 Won.\nPress Play Again to Playndı.\nPress Exit tto Exit.";
+                btnTekrarOyna.Visible = true;
+                btnExit.Visible = true;
+            }
+            else if (pctHorse3.Right >= lblFinishLine.Left)
+            {
+                lblResault.Visible = true;
+                tmrRace.Stop();
+                lblResault.Text = "Horse Number 3 Won.\nPress Play Again to Playndı.\nPress Exit tto Exit.";
+                btnTekrarOyna.Visible = true;
+                btnExit.Visible = true;
+            }
+            
+        }
+
+        private void btnTekrarOyna_Click(object sender, EventArgs e)
+        {
+            pctHorse1.Left = 0;
+            pctHorse2.Left = 0;
+            pctHorse3.Left = 0;
+            lblResault.Visible = false;
+            btnTekrarOyna.Visible = false;
+            btnStartRace.Visible = true;
+            btnExit.Visible = false;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+    }
+}
